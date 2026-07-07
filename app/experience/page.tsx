@@ -1,0 +1,7 @@
+import type { Metadata } from "next";
+import { ExperienceCard } from "@/components/ExperienceCard";
+import { programs, competitions, activities, research } from "@/data/experiences";
+import { PageTOC } from "@/components/PageTOC";
+export const metadata: Metadata = { title: "Experience" };
+const sections=[{id:"programs",title:"Programs",items:programs},{id:"competitions",title:"Competitions",items:competitions},{id:"activities",title:"Activities",items:activities},{id:"research",title:"Research / Lab Experiences",items:research}];
+export default function ExperiencePage(){ return <><section className="page-hero"><div className="container"><p className="eyebrow">Beyond the classroom</p><h1>Experiences that shape how I work.</h1><p className="lead">Programs, competitions, activities, and research exploration viewed through the skills and perspective each experience developed.</p></div></section><section className="section"><div className="container page-with-toc"><div className="content-stack">{sections.map(section=><section className="anchor-section" key={section.id} id={section.id}><div className="subsection-title"><h2>{section.title}</h2><p>{section.items.length} {section.items.length===1?"entry":"entries"}</p></div><div className="grid-2">{section.items.map(item=><ExperienceCard key={item.name} experience={item}/>)}</div></section>)}</div><PageTOC items={sections.map(section=>({label:section.title,href:`#${section.id}`}))}/></div></section></>; }
