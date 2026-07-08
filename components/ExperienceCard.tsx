@@ -5,7 +5,8 @@ import { SkillTag } from "./SkillTag";
 export function ExperienceCard({ experience }: { experience: Experience }) {
   return (
     <article className="card experience-card">
-      <div className="card-topline"><span>{experience.type}</span><span>{experience.date}</span></div>
+      <div className="entry-type">EXPERIENCE // {experience.type}</div>
+      <div className="card-topline"><span>archive_record</span><span>{experience.date}</span></div>
       <h3>{experience.name}</h3>{experience.organization && <p className="organization">{experience.organization}</p>}
       <p>{experience.description}</p>{experience.takeaways && <p className="takeaway"><strong>Key takeaways:</strong> {experience.takeaways}</p>}
       <div className="tag-list">{experience.tags.map((item) => <SkillTag key={item}>{item}</SkillTag>)}</div>
