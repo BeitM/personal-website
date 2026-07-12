@@ -2,25 +2,20 @@ export type Directory = {
   label: string;
   plainLabel: string;
   href: string;
-  command: string;
   code: string;
 };
 
 export const directories: Directory[] = [
-  { label: "ROOT", plainLabel: "Home", href: "/", command: "home", code: "00" },
-  { label: "IDENTITY", plainLabel: "About", href: "/identity", command: "identity", code: "01" },
-  { label: "BUILDS", plainLabel: "Projects", href: "/builds", command: "builds", code: "02" },
-  { label: "ARCHIVE", plainLabel: "Notes & experiments", href: "/archive", command: "archive", code: "03" },
-  { label: "PERSONNEL RECORD", plainLabel: "Résumé", href: "/personnel-record", command: "resume", code: "04" },
-  { label: "UPLINK", plainLabel: "Contact", href: "/uplink", command: "contact", code: "05" },
+  { label: "DESKTOP", plainLabel: "Home", href: "/", code: "00" },
+  { label: "ABOUT_ME", plainLabel: "About me", href: "/identity", code: "01" },
+  { label: "PROJECTS", plainLabel: "Projects", href: "/builds", code: "02" },
+  { label: "EXPERIENCE", plainLabel: "Experience", href: "/experience", code: "03" },
+  { label: "ARCHIVE", plainLabel: "Notes & experiments", href: "/archive", code: "04" },
+  { label: "AWARDS", plainLabel: "Awards", href: "/awards", code: "05" },
+  { label: "CONTACT", plainLabel: "Contact", href: "/uplink", code: "06" },
+  { label: "RESUME", plainLabel: "Résumé", href: "/personnel-record", code: "07" },
+  { label: "INSTRUCTIONS", plainLabel: "MB/OS instructions", href: "/instructions", code: "08" },
 ];
-
-export const commandAliases: Record<string, string> = {
-  projects: "/builds",
-  current: "/#current",
-  random: "/builds/computational-biology",
-  help: "help",
-};
 
 export function displayPath(pathname: string) {
   return pathname === "/" ? "/root" : pathname;
