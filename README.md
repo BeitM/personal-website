@@ -1,12 +1,13 @@
-# Matt Beitler — Personal Portfolio
+# Matt Beitler // Personal System
 
-A living portfolio for documenting projects, FTC robotics work, experiences, awards, technical skills, learning progress, and resume information.
+A fictional public archive terminal for documenting projects, FTC robotics work, research, experiments, history, and work in progress.
 
 ## Tech stack
 
 - Next.js (App Router)
 - TypeScript
-- Tailwind CSS
+- Tailwind CSS build pipeline with a custom CSS design system
+- Motion for React
 - Deployable on Vercel
 
 ## Run locally
@@ -27,16 +28,15 @@ npm run build
 
 ## Edit content
 
-Most recurring content lives in `data/`:
+Recurring archive content lives in `data/archive.ts`:
 
-- `data/projects.ts` — project cards
-- `data/experiences.ts` — programs, competitions, activities, and research
-- `data/awards.ts` — awards and categories
-- `data/learning.ts` — learning log entries
-- `data/skills.ts` — Home and Resume skill lists
-- `data/search.ts` — global search results and keywords
+- project build records and detail-page sections
+- archive logs
+- system history
+- skill systems
+- external links
 
-Page-specific narrative content lives in the corresponding route under `app/`. Update contact placeholders in `app/contact/page.tsx` and resume placeholders in `app/resume/page.tsx` before publishing.
+Directory and command destinations live in `data/navigation.ts`. Update the flagged contact placeholders in `data/archive.ts` before publishing publicly.
 
 ## Push to GitHub
 

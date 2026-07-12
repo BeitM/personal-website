@@ -1,76 +1,52 @@
 import Link from "next/link";
-import { AsciiTypingIntro } from "@/components/AsciiTypingIntro";
-import { LearningEntry } from "@/components/LearningEntry";
-import { PageTOC } from "@/components/PageTOC";
-import { SectionHeader } from "@/components/SectionHeader";
-import { SkillTag } from "@/components/SkillTag";
-import { learning } from "@/data/learning";
-import { skills } from "@/data/skills";
+import { archiveEntries, projects } from "@/data/archive";
 
-const features = [
-  ["01", "FTC Robotics", "Leadership, software, autonomous systems, vision, localization, and control systems.", "/robotics"],
-  ["02", "Projects", "Technical work across robotics, AI, computational biology, and web development.", "/projects"],
-  ["03", "Experience", "Programs, competitions, activities, and early research exploration.", "/experience"],
-  ["04", "Awards", "Recognition across STEM, academics, robotics, and activities.", "/awards"],
+const desktopFiles = [
+  { name: "PROJECTS", ext: "FOLDER", href: "/builds", type: "folder", note: "4 items" },
+  { name: "EXPERIENCE", ext: "TXT", href: "/experience", type: "document", note: "record" },
+  { name: "AWARDS", ext: "DAT", href: "/awards", type: "data", note: "indexed" },
+  { name: "RESUME", ext: "DOC", href: "/personnel-record", type: "document", note: "public" },
+  { name: "ABOUT_MATT", ext: "SYS", href: "/identity", type: "system", note: "identity" },
+  { name: "ARCHIVE", ext: "FOLDER", href: "/archive", type: "folder", note: `${archiveEntries.length} logs` },
+  { name: "CONTACT", ext: "EXE", href: "/uplink", type: "application", note: "uplink" },
 ];
 
 export default function Home() {
-  return (
-    <>
-      <section id="introduction" className="hero anchor-section">
-        <div className="container page-with-toc">
-          <div className="hero-showcase">
-            <AsciiTypingIntro />
-            <p className="hero-role">Student builder // robotics // AI // computer science // computational biology</p>
-            <p className="hero-summary">Building, debugging, competing, researching, and documenting progress.</p>
-            <div className="button-row hero-actions">
-              <Link className="button button-primary" href="/projects">Open Projects</Link>
-              <Link className="button button-secondary" href="/resume">View Resume</Link>
-            </div>
-          </div>
-          <PageTOC items={[{ label: "Introduction", href: "#introduction" }, { label: "Current status", href: "#current" }, { label: "Selected work", href: "#explore" }, { label: "Skills", href: "#skills" }, { label: "Learning log", href: "#learning" }]} />
-        </div>
-      </section>
+  const featured = projects.find((project) => project.featured)!;
 
-      <section id="current" className="section section-soft anchor-section">
-        <div className="container">
-          <SectionHeader eyebrow="current_status" title="Work in progress" description="A concise view of what is active now." />
-          <div className="status-grid">
-            <div className="status-row"><span className="status-dot" /><span>Building a personal portfolio system</span><b>ACTIVE</b></div>
-            <div className="status-row"><span className="status-dot" /><span>Developing an FTC AI assistant concept</span><b>IN PROGRESS</b></div>
-            <div className="status-row"><span className="status-dot" /><span>Exploring AI, robotics, and computational biology</span><b>LEARNING</b></div>
-          </div>
-        </div>
-      </section>
+  return <div className="desktop-surface">
+    <div className="desktop-brand" aria-hidden="true"><span>MATT</span><b>BEITLER</b><small>DIGITAL ARCHIVE / PUBLIC DESKTOP</small></div>
 
-      <section id="explore" className="section anchor-section">
-        <div className="container">
-          <SectionHeader eyebrow="selected_work" title="Selected work" description="Projects and experiences viewed through what I built, tested, and learned." />
-          <div className="grid-4">
-            {features.map(([number, title, description, href]) => (
-              <Link href={href} className="card feature-card" key={title}>
-                <span className="feature-number">ENTRY_{number}</span>
-                <div><h3>{title}</h3><p>{description}</p><span className="text-link">View details <span aria-hidden="true">→</span></span></div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+    <section className="desktop-icons" aria-label="Desktop files and folders">
+      {desktopFiles.map((file) => <Link className="desktop-file" href={file.href} key={file.name}>
+        <span className={`desktop-file-art ${file.type}`} aria-hidden="true"><i /><b>{file.ext}</b></span>
+        <strong>{file.name}</strong><small>{file.note}</small>
+      </Link>)}
+    </section>
 
-      <section id="skills" className="section section-soft anchor-section">
-        <div className="container">
-          <SectionHeader eyebrow="skills" title="Technical toolkit" description="Programming, engineering, analysis, and communication capabilities currently in use." />
-          <div className="skill-cloud skill-cloud-left">{skills.map((skill) => <SkillTag key={skill}>{skill}</SkillTag>)}</div>
-        </div>
-      </section>
+    <section id="terminal" className="desktop-terminal desktop-window">
+      <header><span className="window-lights"><i /><i /></span><p>WELCOME.TERM — PUBLIC SESSION</p><b>□</b></header>
+      <div className="terminal-screen">
+        <p className="terminal-muted">MB/OS [Version 26.07]</p>
+        <p className="terminal-muted">Copyright (c) Matt Beitler. Public access granted.</p>
+        <br />
+        <p><span>C:\MATT_ARCHIVE&gt;</span> whoami</p>
+        <p className="terminal-response">Matt Beitler — student builder / robotics / AI / computational biology</p>
+        <p><span>C:\MATT_ARCHIVE&gt;</span> message --visitor</p>
+        <p className="terminal-response">You are inside my digital archive. Click a file to inspect what I build, study, and document.</p>
+        <p><span>C:\MATT_ARCHIVE&gt;</span> <i className="terminal-caret" /></p>
+      </div>
+      <footer><span>PRESS / TO OPEN COMMAND LINE</span><span>SESSION 7F3A</span></footer>
+    </section>
 
-      <section id="learning" className="section anchor-section">
-        <div className="container">
-          <SectionHeader eyebrow="learning_log" title="Ideas in progress" description="Short notes on topics I am studying and questions I want to understand better." />
-          <div className="learning-list">{learning.slice(0, 3).map((item) => <LearningEntry key={item.title} item={item} />)}</div>
-          <Link className="text-link" href="/learning">View learning log <span aria-hidden="true">→</span></Link>
-        </div>
-      </section>
-    </>
-  );
+    <Link href={`/builds/${featured.slug}`} className="desktop-preview desktop-window">
+      <header><span>ACTIVE PROJECT</span><p>{featured.id}</p><b>×</b></header>
+      <div className="preview-graphic" aria-hidden="true"><i /><i /><i /><span>96</span></div>
+      <div className="preview-copy"><small>{featured.type}</small><h2>{featured.shortTitle}</h2><p>{featured.summary}</p><b>DOUBLE-CLICK NOT REQUIRED — OPEN →</b></div>
+    </Link>
+
+    <aside className="desktop-help"><p>WELCOME TO MB/OS</p><span>Single-click any file to open it.</span><span>Press <kbd>/</kbd> for the command line.</span><span>Press <kbd>ESC</kbd> to return to desktop.</span></aside>
+
+    <div className="desktop-drive"><span className="drive-art" aria-hidden="true"><i /></span><b>SYSTEM_DISK</b><small>68% FREE</small></div>
+  </div>;
 }

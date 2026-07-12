@@ -1,16 +1,2 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { SkillTag } from "@/components/SkillTag";
-import { PageTOC } from "@/components/PageTOC";
-export const metadata: Metadata = { title: "FTC Robotics" };
-const details=[
-  ["Leadership","As captain, programmer, and engineering contributor, I help connect technical decisions to match strategy, team priorities, and reliable execution."],
-  ["Robot software","I develop and refine Java software in the FTC SDK for mechanisms, driver controls, system coordination, and dependable on-field behavior."],
-  ["Autonomous strategy","Autonomous work combines path planning, mechanism sequencing, timing, and recovery thinking to turn match objectives into repeatable routines."],
-  ["Vision / localization","I explore computer vision and localization methods that help the robot estimate its position and respond to field conditions."],
-  ["Control systems","Feedback, state management, and careful tuning help mechanisms move accurately while remaining understandable and maintainable."],
-  ["Engineering documentation","Design notes, code organization, testing records, and clear explanations preserve decisions and help the team improve faster."],
-  ["Competition experience","Competition provides the real test: limited time, noisy data, changing strategy, and the need to diagnose problems without losing focus."],
-];
-const tags=["Java","FTC SDK","Autonomous programming","Localization","Computer vision","Control systems","Engineering documentation","Team leadership"];
-export default function RoboticsPage(){const toc=[{label:"Overview",href:"#overview"},...details.map(([title])=>({label:title,href:`#${title.toLowerCase().replaceAll(" / ","-").replaceAll(" ","-")}`})),{label:"Media & awards",href:"#media-awards"}];return <><section className="page-hero"><div className="container"><p className="eyebrow">FTC Team 18603 · Terabridges</p><h1>Robotics is where software meets the real world.</h1><p className="lead">As a captain, programmer, and engineering contributor, I work across robot software, autonomous strategy, system design, testing, documentation, and team leadership.</p></div></section><section className="section"><div className="container page-with-toc"><div className="robotics-grid"><div><div id="overview" className="detail-block anchor-section"><h2>Overview</h2><p>FTC is a long-term engineering practice: build an idea, test it under constraints, learn from failure, and make the whole system more reliable. My focus is translating strategy into software that the team can understand, test, and trust.</p><div className="tag-list">{tags.map(tag=><SkillTag key={tag}>{tag}</SkillTag>)}</div></div><div className="detail-list">{details.map(([title,text])=>{const id=title.toLowerCase().replaceAll(" / ","-").replaceAll(" ","-");return <article id={id} className="detail-block anchor-section" key={title}><h3>{title}</h3><p>{text}</p></article>})}</div></div><aside id="media-awards" className="anchor-section"><div className="card aside-card"><p className="eyebrow">Media</p><div className="media-placeholder">Add robot photos,<br/>match video, or CAD imagery</div><h3 style={{marginTop:"1.5rem"}}>Awards preview</h3><p>Team and individual recognitions are summarized on the central Awards page.</p><Link className="text-link" href="/awards#robotics">View robotics awards →</Link></div></aside></div><PageTOC items={toc}/></div></section></>}
+import { permanentRedirect } from "next/navigation";
+export default function RoboticsRedirect() { permanentRedirect("/builds/robolab-ftc"); }
