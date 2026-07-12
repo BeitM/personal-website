@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const bootLines = ["BIOS CHECK ........ OK", "MOUNTING /PUBLIC_ARCHIVE", "IDENTITY SIGNATURE FOUND", "DESKTOP BUFFER READY"];
 
@@ -10,8 +10,10 @@ export function BootSequence() {
   const [visible, setVisible] = useState(false);
   const [stage, setStage] = useState(0);
   const [ready, setReady] = useState(false);
+  const enterButtonRef = useRef<HTMLButtonElement>(null);
 
   function replay() {
+    if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
     setStage(reducedMotion ? 4 : 0);
     setReady(Boolean(reducedMotion));
     setVisible(true);
@@ -38,18 +40,22 @@ export function BootSequence() {
 
   useEffect(() => {
     if (!visible || !ready) return;
+    enterButtonRef.current?.focus({ preventScroll: true });
     const enter = (event: KeyboardEvent) => {
       if (["Tab", "Shift", "Control", "Alt", "Meta"].includes(event.key)) return;
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
       setVisible(false);
     };
-    window.addEventListener("keydown", enter);
-    return () => window.removeEventListener("keydown", enter);
+    window.addEventListener("keydown", enter, true);
+    return () => window.removeEventListener("keydown", enter, true);
   }, [ready, visible]);
 
   return <AnimatePresence>{visible && <motion.div className="boot-sequence desktop-boot" initial={{ opacity: 1 }} exit={{ opacity: 0, filter: "brightness(3)", scaleY: .02 }} transition={{ duration: .28 }}>
     <div className="boot-logo-stage">
       <div className="boot-orbit" aria-hidden="true"><i /><i /><i /></div>
-      <div className="boot-identity" aria-live="polite"><span>MB/OS PRESENTS</span><h1 data-text="MATT BEITLER">MATT BEITLER</h1><h2>PERSONAL DIGITAL ARCHIVE</h2><p>{ready ? "ARCHIVE READY" : "ESTABLISHING PUBLIC SESSION"}<span className="boot-dots">...</span></p>{ready && <button className="boot-enter" type="button" onClick={() => setVisible(false)}>PRESS ANY KEY TO ENTER DESKTOP <i /></button>}</div>
+      <div className="boot-identity" aria-live="polite"><span>MB/OS PRESENTS</span><h1 data-text="MATT BEITLER">MATT BEITLER</h1><h2>PERSONAL DIGITAL ARCHIVE</h2><p>{ready ? "ARCHIVE READY" : "ESTABLISHING PUBLIC SESSION"}<span className="boot-dots">...</span></p>{ready && <button ref={enterButtonRef} className="boot-enter" type="button" onClick={() => setVisible(false)}>PRESS ANY KEY TO ENTER DESKTOP <i /></button>}</div>
       <div className="boot-log">{bootLines.slice(0, stage).map((line) => <p key={line}>&gt; {line}</p>)}</div>
       <div className="boot-progress"><span style={{ width: `${Math.min(stage / 4, 1) * 100}%` }} /></div>
     </div>

@@ -525,3 +525,12 @@ body { background: #010302; }
 @media (prefers-reduced-motion: reduce) {
   .application-window { animation: none !important; }
 }
+
+/* MAXIMIZED FILE WORKSPACE */
+.desktop-viewport.terminal-viewport { height: 100%; }
+.application-window { inset: 8px 10px; }
+.desktop-drive { border: 0; background: transparent; cursor: pointer; }.desktop-drive:hover, .desktop-drive:focus-visible { color: var(--phosphor); }.desktop-drive:hover .drive-art, .desktop-drive:focus-visible .drive-art { border-color: var(--phosphor); box-shadow: inset -5px -5px #343a36, 3px 4px #010302, 0 0 10px rgba(138,247,210,.24); }
+
+@media (max-width: 700px) {
+  .application-window { inset: 4px; }
+}

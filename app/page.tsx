@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ReplayBootButton } from "@/components/system/ReplayBootButton";
+import { SystemDiskButton } from "@/components/system/SystemDiskButton";
 import { archiveEntries } from "@/data/archive";
 
 const desktopFiles = [
@@ -25,6 +26,6 @@ export default function Home() {
 
     <div className="desktop-top-tools"><ReplayBootButton /><Link className="desktop-file instructions-file" href="/instructions"><span className="desktop-file-art document instructions-art" aria-hidden="true"><i /><b>TXT</b></span><strong>INSTRUCTIONS</strong><small>MB/OS guide</small></Link></div>
 
-    <div className="desktop-drive"><span className="drive-art" aria-hidden="true"><i /></span><b>SYSTEM_DISK</b><small>68% FREE</small></div>
+    <SystemDiskButton />
   </div>;
 }

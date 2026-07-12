@@ -50,6 +50,12 @@ export function ArchiveShell({ children }: { children: React.ReactNode }) {
 
   useEffect(() => setIndexOpen(false), [pathname]);
 
+  useEffect(() => {
+    const openFiles = () => setIndexOpen(true);
+    window.addEventListener("mb:open-files", openFiles);
+    return () => window.removeEventListener("mb:open-files", openFiles);
+  }, []);
+
   return (
     <div className={`archive-system ${isDesktop ? "desktop-mode" : "window-mode"}`}>
       <a className="skip-link" href="#main-content">SKIP TO CONTENT</a>
